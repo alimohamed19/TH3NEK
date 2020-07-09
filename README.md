@@ -1,2 +1,0 @@
-# TH3NEK
-Abaza
