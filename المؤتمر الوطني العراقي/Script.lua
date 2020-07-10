@@ -2025,65 +2025,6 @@ return"📭╿حسننا عزيزي  ✋🏿\n🗯╽الان ارسل الاس�
 end
 
 
-if msg.type ~= 'pv' and msg.GroupActive then 
-
-if MsgText[1] == "ايدي" or MsgText[1]:lower() == "id" then
-if not MsgText[2] and not msg.reply_id then
-if redis:get(boss..'lock_id'..msg.chat_id_) then
-
-GetUserID(msg.sender_user_id_,function(arg,data)
-
-local msgs = redis:get(boss..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
-if data.username_ then UserNameID = "🎫¦ مـعرفك •⊱ @"..data.username_.." ⊰•\n" else UserNameID = "" end
-if data.username_ then UserNameID1 = "@"..data.username_ else UserNameID1 = "لا يوجد" end
-if data.last_name_ then Name = data.first_name_ .." "..data.last_name_ else Name = data.first_name_ end
-local Namei = FlterName(data,20)
-if data.status_.ID == "UserStatusEmpty" then
-sendMsg(arg.chat_id_,data.id_,'📛¦ لا يمكنني عرض صورة بروفايلك لانك قمت بحظر البوت ... !\n\n')
-else
-
-  GetPhotoUser(data.id_,function(arg,data)
-    local edited = (redis:get(boss..':edited:'..arg.chat_id_..':'..arg.sender_user_id_) or 0)
-
-    local KleshaID = '👤¦ أســمـك •⊱ { '..arg.Namei..' } ⊰•\n'
-    ..'🎟¦ ايديــك •⊱ {'..arg.sender_user_id_..'} ⊰•\n'
-    ..arg.UserNameID
-    ..'📡¦ رتبتـــك •⊱ '..arg.TheRank..' ⊰•\n'
-    ..'⭐️¦ تفاعـلك •⊱ '..Get_Ttl(arg.msgs)..'⊰•\n'
-    ..'💬¦ رسائلك •⊱ {'..arg.msgs..'} ⊰•\n➖'
-local Kleshaidinfo = redis:get(boss..":infoiduser_public:"..arg.chat_id_) or redis:get(boss..":infoiduser")  
-
-if Kleshaidinfo then 
-  local points = redis:get(boss..':User_Points:'..arg.chat_id_..arg.sender_user_id_) or 0
-  KleshaID = Kleshaidinfo:gsub("{الاسم}",arg.Namei)
-  KleshaID = KleshaID:gsub("{الايدي}",arg.sender_user_id_)
-  KleshaID = KleshaID:gsub("{المعرف}",arg.UserNameID1)
-  KleshaID = KleshaID:gsub("{الرتبه}",arg.TheRank)
-  KleshaID = KleshaID:gsub("{التفاعل}",Get_Ttl(arg.msgs))
-  KleshaID = KleshaID:gsub("{الرسائل}",arg.msgs)
-  KleshaID = KleshaID:gsub("{التعديل}",edited)
-  KleshaID = KleshaID:gsub("{النقاط}",points)
-end
-  if redis:get(boss.."idphoto"..msg.chat_id_) then
-    if data.photos_ and data.photos_[0] then 
-    sendPhoto(arg.chat_id_,arg.id_,data.photos_[0].sizes_[1].photo_.persistent_id_,KleshaID,dl_cb,nil)
-    else
-    sendMsg(arg.chat_id_,arg.id_,'🚸¦ لا يوجد صوره في بروفايلك ... !\n\n'..Flter_Markdown(KleshaID))
-    end
-    else
-    sendMsg(arg.chat_id_,arg.id_,Flter_Markdown(KleshaID))
-    end
-
-  end,{chat_id_=arg.chat_id_,id_=arg.id_,TheRank=arg.TheRank,sender_user_id_=data.id_,msgs=msgs,Namei=Namei,UserNameID=UserNameID,UserNameID1=UserNameID1})
-
-
-end
-
-end,{chat_id_=msg.chat_id_,id_=msg.id_,TheRank=msg.TheRank})
-
-end
-end
-
 
 
 
@@ -2125,7 +2066,6 @@ echo '*------------------------------\n*👨🏾‍🔧l ❪ الــدخــو�
 echo '*------------------------------\n*🔌l ❪ مـده تـشغيـل الـسـيـرفـر ❫  \n*»» '"$uptime"'*'
 ]]):read('*all')
 end
-
 
 if msg.type == 'channel' and msg.GroupActive then
 if MsgText[1] == "الاوامر" then
