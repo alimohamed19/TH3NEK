@@ -4225,38 +4225,6 @@ end
 
 end
 
-
-if (text and text == "ابلاغ" and msg.reply_to_message_id_ ~= 0 and (not database:get("NEYZK:mute:deleta:msg:"..bot_id..msg.chat_id_))) then 
-b = database:get("NEYZK:user:deleteL:msg:"..msg.chat_id_..bot_id..msg.sender_user_id_)
-if b and b == os.date("%x") then 
-send(msg.chat_id_, msg.id_, 1, "👤┇ لا يمكنك الابلاغ اكثر من مره في اليوم", 1, 'html')
-else
-database:set("NEYZK:user:deleteL:msg:"..msg.chat_id_..bot_id..msg.sender_user_id_,os.date("%x"))
-y = database:get("tsahke:fel:o:me:"..bot_id..msg.chat_id_) or 10
-x = database:get("tsahke:fel:msg:me:"..bot_id..msg.chat_id_..msg.reply_to_message_id_) or 0
-send(msg.chat_id_, msg.reply_to_message_id_, 1, "⚠┇تم الابلاغ على الرساله\n⚠┇تبقى {"..(y-(x+1)).."} حتى يتم حذف الرساله", 1, 'html')
-database:incr("tsahke:fel:msg:me:"..bot_id..msg.chat_id_..msg.reply_to_message_id_)
-if (database:get("tsahke:fel:msg:me:"..bot_id..msg.chat_id_..msg.reply_to_message_id_)) then 
-x = database:get("tsahke:fel:msg:me:"..bot_id..msg.chat_id_..msg.reply_to_message_id_)
-y = database:get("tsahke:fel:o:me:"..bot_id..msg.chat_id_) or 10
-if tonumber(x) >= tonumber(y) then 
-send(msg.chat_id_, 0, 1, "⚠┇تم حذف الرساله", 1, 'html')
-delete_msg(msg.chat_id_, {[0] = msg.reply_to_message_id_})
-end
-end
-end 
-end
-if (text and text == "تعطيل الابلاغ"  and (is_creator(msg) or is_creatorbasic(msg))) then 
-database:set("NEYZK:mute:deleta:msg:"..bot_id..msg.chat_id_,"NEYZKE")
-send(msg.chat_id_, msg.id_, 1, "🔓┇تم تعطيل خاصيه الابلاغ", 1, 'html')
-end
-if (text and text == "تفعيل الابلاغ"  and (is_creator(msg) or is_creatorbasic(msg))) then 
-database:del("NEYZK:mute:deleta:msg:"..bot_id..msg.chat_id_)
-send(msg.chat_id_, msg.id_, 1, "🔓┇تم تفعيل خاصيه الابلاغ", 1, 'html')
-end
-
-
-
 ------------------------------{ End Replay Send }------------------------
 
 ------------------------------{ Start Checking CheckExpire }------------------------
