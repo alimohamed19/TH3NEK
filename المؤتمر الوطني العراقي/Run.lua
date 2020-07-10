@@ -519,7 +519,7 @@ mmdi = redis:hget(max..'CmD:'..msg.chat_id_,Mohammad)
 msg.text = Mohammad:gsub(Mohammad,mmdi)
 end
 end
-	if (msg.text=="تحديث" or msg.text=="we" or msg.text=="تحديث السورس") and msg.sender_user_id_ == SUDO_ID then
+	if (msg.text=="تحديث" or msg.text=="we" or msg.text=="ت") and msg.sender_user_id_ == SUDO_ID then
 	return sendMsg(msg.chat_id_,msg.id_," •~تم تحديث آلمـلفآت \n✓",nil,function(arg,data)
 	Refresh_Start = true
 	end)
